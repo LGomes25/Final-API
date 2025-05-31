@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -65,5 +66,17 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 	   return ResponseEntity.badRequest().body(mensagemErro);
 	}
 
+	@ExceptionHandler(ProdutoException.class)
+	public ResponseEntity<Object> handleProdutoException(ProdutoException ex, WebRequest request) {
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+		ErroResposta erroResposta = new ErroResposta(
+				HttpStatus.BAD_REQUEST.value(),
+				"Erro no Produto",
+				LocalDateTime.now(),
+				erros
+		);
+		return new ResponseEntity<>(erroResposta, HttpStatus.BAD_REQUEST);
+	}
 	
 }
