@@ -33,22 +33,21 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
-	@Operation(summary = "Lista todos os clientes", description = "A resposta lista os dados dos clientes id, nome, cpf e email.")
+	@Operation(summary = "Lista todos os clientes", description = "A resposta lista os dados de todos os clientes: id, nome, telefone e email.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", content = {
-			@Content(schema = @Schema(implementation = Cliente.class), mediaType = "application/json") }, description = "Retorna todos os clientes"),
+			@Content(schema = @Schema(implementation = ClienteResponseDTO.class), mediaType = "application/json") }, description = "Retorna todos os clientes"),
 			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
 			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
 			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
 			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
-	
 	@GetMapping
 	public ResponseEntity<List<ClienteResponseDTO>> listar(){
 		return ResponseEntity.ok(service.listar());
 	}
 	
-	@Operation(summary = "Cadastra um clientes", description = "A resposta lista os dados dos clientes id, nome, cpf e email.")
+	@Operation(summary = "Cadastra um clientes", description = "A resposta lista os dados do cliente inserido: id, nome, telefone e email.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", content = {
-			@Content(schema = @Schema(implementation = Cliente.class), mediaType = "application/json") }, description = "Cadastrar cliente"),
+			@Content(schema = @Schema(implementation = ClienteResponseDTO.class), mediaType = "application/json") }, description = "Cadastra um cliente"),
 			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
 			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
 			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
@@ -59,11 +58,25 @@ public class ClienteController {
 		return service.inserir(cliente);
 	}
 	
+	@Operation(summary = "Atualiza um cliente pelo id", description = "A resposta lista os dados do cliente atualizado: id, nome, telefone e email.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = ClienteResponseDTO.class), mediaType = "application/json") }, description = "Retorna cliente atualizado"),
+			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
+			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
+			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
+			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
 	@PutMapping ("{id}")
 	public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long id, @RequestBody ClienteRequestDTO cliente){ 
 		return ResponseEntity.ok(service.atualizar(id, cliente));
 	}
 	
+	@Operation(summary = "Exclui um cliente pelo id", description = "Não apresenta mensagem de retorno")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "204", description = "Cliente excluído com sucesso"),
+			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
+			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
+			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
+			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
 	@DeleteMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
