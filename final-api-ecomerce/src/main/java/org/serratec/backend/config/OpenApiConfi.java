@@ -15,29 +15,48 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class OpenApiConfi {
 
-	@Value("${dominio.openapi.dev-url}")
+	@Value("${bookcommerce.api.dev-url:http://localhost:8080}")
 	private String devUrl;
-	@Value("${dominio.openapi.prod-url}")
+
+	@Value("${bookcommerce.api.prod-url:https://api.bookcommerce.com}")
 	private String prodUrl;
 
 	@Bean
-	OpenAPI myOpenAPI() {
-		Server devServer = new Server();
-		devServer.setUrl(devUrl);
-		devServer.setDescription("URL do servidor de desenvolvimento");
-		Server prodServer = new Server();
-		prodServer.setUrl(prodUrl);
-		prodServer.setDescription("URL do servidor de produção");
-		Contact contact = new Contact();
-		contact.setEmail("contato@meudominio.com.br");
-		contact.setName("Fulano");
-		contact.setUrl("https://www.meudominio.com.br");
-		License apacheLicense = new License().name("Apache 	License")
-				.url("https://www.apache.org/licenses/LICENSE-2.0");
-		Info info = new Info().title("API do Grupo 4").version("40.0 + 20.0").contact(contact)
-				.description("Os Donos: Eduardha, Maria Vitória, Mateus, Leorick, Leonardo ").termsOfService("https://www.meudominio.com.br/termos")
-				.license(apacheLicense);
-		return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+	public OpenAPI bookCommerceOpenAPI() {
+		return new OpenAPI()
+				.servers(getServers())
+				.info(getApiInfo());
 	}
 
+	private List<Server> getServers() {
+		Server devServer = new Server()
+				.url(devUrl)
+				.description("Ambiente de Desenvolvimento - Local");
+
+		Server prodServer = new Server()
+				.url(prodUrl)
+				.description("Ambiente de Produção");
+
+		return List.of(devServer, prodServer);
+	}
+
+	private Info getApiInfo() {
+		Contact contact = new Contact()
+				.name("Suporte BookCommerce")
+				.email(" ")
+				.url(" ");
+
+		License license = new License()
+				.name("Apache 2.0")
+				.url("https://www.apache.org/licenses/LICENSE-2.0");
+
+		return new Info()
+				.title("BookCommerce API")
+				.version("1.0.0")
+				.description("A API de E-commerce de Livros é uma interface RESTful desenvolvida para gerenciar todo o fluxo de uma livraria online. Ela oferece endpoints para inserir, editar, remover e listar livros, funcionários, clientes e seus pedidos, proporcionando uma gestão completa e eficiente do sistema. " +
+						"Donos: Eduardha,Leonardo Soares, Leorick, Maria Vitória, Mateus dos Santos-Grupo4")
+				.termsOfService("https://bookcommerce.com/terms")
+				.contact(contact)
+				.license(license);
+	}
 }
