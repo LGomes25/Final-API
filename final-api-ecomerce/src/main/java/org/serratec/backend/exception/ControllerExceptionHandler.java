@@ -84,7 +84,15 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.badRequest().body(ex.getMessage());
 	}
 	
+	@ExceptionHandler(CategoriaException.class)
+	protected ResponseEntity<Object> handleCategoriaException(CategoriaException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
 	
+	@ExceptionHandler(FuncionarioException.class)
+	protected ResponseEntity<Object> handleFuncionarioException(FuncionarioException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
 
 	
 }
