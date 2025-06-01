@@ -9,9 +9,9 @@ public record ProdutoResponseDTO(Long id, String nome, Double preco) {
         this.nome = produto.getNome();
         this.preco = produto.getPreco();
         if (produto.getCategoria() != null) {
-        }
             //ele vai apontar erro aqui até que a Categoria Response esteja criada
            this.categoria = new CategoriaResponseDTO(produto.getCategoria());
         }
+    }
 
 }
