@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.serratec.backend.dto.ClienteRequestDTO;
 import org.serratec.backend.dto.ClienteResponseDTO;
-import org.serratec.backend.entity.Cliente;
 import org.serratec.backend.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

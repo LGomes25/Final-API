@@ -49,12 +49,12 @@ public class ProdutoService {
         }
 
         // só vai funcionar quando tivermos as classes da Categoria prontas
-        Categoria categoria = categoriaService.buscar(produtoRequestDTO.getIdCategoria());
+//        Categoria categoria = categoriaService.buscar(produtoRequestDTO.getIdCategoria());
 
         Produto produto = new Produto();
         produto.setNome(produtoRequestDTO.getNome());
         produto.setPreco(produtoRequestDTO.getPreco());
-        produto.setCategoria(categoria);
+//        produto.setCategoria(categoria);
 
         produto = produtoRepository.save(produto);
         return new ProdutoResponseDTO(produto);
@@ -77,8 +77,8 @@ public class ProdutoService {
         produto.setPreco(produtoRequestDTO.getPreco());
 
         if (produtoRequestDTO.getIdCategoria() != null) {
-            Categoria categoria = categoriaService.buscar(produtoRequestDTO.getIdCategoria());
-            produto.setCategoria(categoria);
+//            Categoria categoria = categoriaService.buscar(produtoRequestDTO.getIdCategoria());
+//            produto.setCategoria(categoria);
         }
 
         produto = produtoRepository.save(produto);
@@ -86,7 +86,7 @@ public class ProdutoService {
     }
 
     // remove o produto pelo id
-    @Transactional
+	@Transactional
     public void remover(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new ProdutoException("Produto" + id + " não encontrado para remoção."));

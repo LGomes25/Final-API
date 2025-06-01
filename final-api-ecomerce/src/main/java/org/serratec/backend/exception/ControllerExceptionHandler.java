@@ -78,5 +78,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		);
 		return new ResponseEntity<>(erroResposta, HttpStatus.BAD_REQUEST);
 	}
+
+	@ExceptionHandler(IsbnException.class)
+	protected ResponseEntity<Object> handleIsbnException(IsbnException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
+	
+	
+
 	
 }
