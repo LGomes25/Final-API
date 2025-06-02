@@ -38,6 +38,8 @@ public class Cliente {
 	@NotBlank(message = "O CPF é obrigatório.")
 	@Column(unique = true, nullable = false)
 	private String cpf;
+	
+	@NotBlank
 	private String senha;
 	
 	@JsonBackReference

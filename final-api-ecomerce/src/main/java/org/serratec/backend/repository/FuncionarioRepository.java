@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     Optional<Funcionario> findByEmail(String email);
     Optional<Funcionario> findByCpf(String cpf);
+
     boolean existsByEmail(String email);
     boolean existsByCpf(String cpf);
 
     interface PedidoProdutoRepository {
     }
+
 }

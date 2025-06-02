@@ -1,4 +1,5 @@
 package org.serratec.backend.dto;
 
-public class CategoriaResponseDTO {
+public record CategoriaResponseDTO (Long id, String nome){
+	
 }
