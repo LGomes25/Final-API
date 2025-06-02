@@ -9,5 +9,8 @@ public interface ListadeDesejosRepository extends JpaRepository<ListadeDesejos, 
     
 	List<ListadeDesejos> findListadeDesejosByNome(String nome);
 
+	List<ListadeDesejos> findByClienteId(Long clienteId);
+
+
 
 }
