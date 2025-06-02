@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.serratec.backend.dto.PedidoRequestDTO;
 import org.serratec.backend.enums.StatusPedido;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
