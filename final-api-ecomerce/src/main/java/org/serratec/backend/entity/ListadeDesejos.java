@@ -1,0 +1,26 @@
+package org.serratec.backend.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
+
+@Getter
+@Setter
+public class ListadeDesejos {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Cliente cliente;
+
+    @ManyToMany
+    private List<Produto> produtos;
+
+    private String nome; //nome da minha lista de desejos.
+
+}

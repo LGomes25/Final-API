@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 @Setter
-
 public class PedidoResponseDTO {
 
     private Long id;
@@ -18,4 +17,4 @@ public class PedidoResponseDTO {
     private List<PedidoProdutoDTO> produtos;
     private Double total;
 
-     }
+}
