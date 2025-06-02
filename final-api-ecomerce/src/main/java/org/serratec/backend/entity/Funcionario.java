@@ -1,6 +1,8 @@
 package org.serratec.backend.entity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -48,7 +51,7 @@ public class Funcionario {
     @NotNull
     private Double salario;
 
-    @NotNull(message = "OData de Admissão é obrigatório.")
+    @NotNull(message = "A Data de Admissão é obrigatória.")
     @PastOrPresent
     private LocalDate dataAdmissao;
     
@@ -57,7 +60,7 @@ public class Funcionario {
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
-//	@OneToMany(mappedBy = "id.cliente", fetch = FetchType.EAGER)
-//	private Set<ClientePerfil> clientePerfis = new HashSet<>();
+	@OneToMany(mappedBy = "id.funcionario")
+	private Set<FuncionarioPerfil> funcionarioPerfis = new HashSet<>();
     
 }

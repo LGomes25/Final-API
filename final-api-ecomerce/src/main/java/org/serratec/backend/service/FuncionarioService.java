@@ -1,5 +1,6 @@
 package org.serratec.backend.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +10,9 @@ import org.serratec.backend.dto.FuncionarioRequestDTO;
 import org.serratec.backend.dto.FuncionarioResponseDTO;
 import org.serratec.backend.entity.Endereco;
 import org.serratec.backend.entity.Funcionario;
+import org.serratec.backend.entity.FuncionarioPerfil;
 import org.serratec.backend.exception.FuncionarioException;
+import org.serratec.backend.repository.FuncionarioPerfilRepository;
 import org.serratec.backend.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,13 +27,13 @@ public class FuncionarioService {
     private FuncionarioRepository repoFuncionario;
 
     @Autowired
+    private PerfilService perfilService;
+
+    @Autowired
+    private FuncionarioPerfilRepository funcionarioPerfilRepository;
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    
-//	@Autowired
-//	private PerfilService perfilService;
-//	
-//	@Autowired
-//	private FuncionarioPerfilRepository funcionarioPerfilRepository;
 	
 	@Autowired
 	private MailConfig mailConfig;
@@ -73,17 +76,17 @@ public class FuncionarioService {
 		funcionarioEntity.setDataAdmissao(funcionario.getDataAdmissao());
 		funcionarioEntity.setEndereco(end);									//Inclui endereco no objeto
 		
-//		for (FuncionarioPerfil up: funcionario.getFuncionarioPerfis()) {
-//			up.setPerfil(perfilService.buscar(up.getPerfil().getId()));
-//			up.setFuncionario(funcionarioEntity);
-//			up.setDataCriacao(LocalDate.now());
-//		}
+		for (FuncionarioPerfil fp: funcionario.getFuncionarioPerfis()) {
+			fp.setPerfil(perfilService.buscar(fp.getPerfil().getId()));
+			fp.setFuncionario(funcionarioEntity);
+			fp.setDataCriacao(LocalDate.now());
+		}
 		
 		funcionarioEntity=repoFuncionario.save(funcionarioEntity);
 		
-//		funcionarioPerfilRepository.saveAll(funcionario.getFuncionarioPerfis());
+		funcionarioPerfilRepository.saveAll(funcionario.getFuncionarioPerfis());
 		
-		mailConfig.enviar(funcionarioEntity.getEmail(), "Confirmação de Cadastro", funcionario.toString());
+//		mailConfig.enviar(funcionarioEntity.getEmail(), "Confirmação de Cadastro", funcionario.toString());
 	
 		return new FuncionarioResponseDTO(funcionarioEntity.getId(), funcionarioEntity.getNome(), funcionarioEntity.getTelefone(),funcionarioEntity.getEmail());
 	}
@@ -107,15 +110,22 @@ public class FuncionarioService {
 		funcionarioEntity.setDataAdmissao(funcionario.getDataAdmissao() != null ? funcionario.getDataAdmissao() : funcionarioEntity.getDataAdmissao());
 		funcionarioEntity.setEndereco(end);
 		
+		for (FuncionarioPerfil fp: funcionario.getFuncionarioPerfis()) {
+			fp.setPerfil(perfilService.buscar(fp.getPerfil().getId()));
+			fp.setFuncionario(funcionarioEntity);
+			fp.setDataCriacao(LocalDate.now());
+		}
+		
 		funcionarioEntity=repoFuncionario.save(funcionarioEntity);
 		
-		mailConfig.enviar(funcionarioEntity.getEmail(), "Confirmação de Atualização de Cadastro", funcionario.toString());
+		funcionarioPerfilRepository.saveAll(funcionario.getFuncionarioPerfis());
+		
+//		mailConfig.enviar(funcionarioEntity.getEmail(), "Confirmação de Atualização de Cadastro", funcionario.toString());
 		
 		return new FuncionarioResponseDTO(funcionarioEntity.getId(), 
 										funcionarioEntity.getNome(), 
 										funcionarioEntity.getTelefone(),
 										funcionarioEntity.getEmail());
-
 	}
 
 	@Transactional
