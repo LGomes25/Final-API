@@ -14,5 +14,6 @@ public class ListadeDesejosDTO {
     private List<Long> produtoId;
 
     public Iterable<? extends Long> getProdutos() {
+    return null;
     }
 }

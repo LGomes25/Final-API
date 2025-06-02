@@ -1,22 +1,29 @@
 package org.serratec.backend.dto;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.validator.constraints.br.CPF;
 import org.serratec.backend.entity.Funcionario;
+import org.serratec.backend.entity.FuncionarioPerfil;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+
 public class FuncionarioRequestDTO {
 
     @NotBlank(message = "Nome é obrigatório")
@@ -46,34 +53,41 @@ public class FuncionarioRequestDTO {
     
     @NotNull(message = "Salário é obrigatório")
     @Positive(message = "Salário deve ser positivo")
+    @Min(value = 1518, message = "Salário mínimo permitido é de 1518.00." )
     private Double salario;
 
     @NotNull(message = "Data de admissão é obrigatória")
     @PastOrPresent
     private LocalDate dataAdmissao;
 
-//	Inserir o perfil em clientes
-//	private Set<FuncionarioPerfil> clientePerfis = new HashSet<>();
+	private Set<FuncionarioPerfil> funcionarioPerfis = new HashSet<>();
 
 //	construtor cheio, o vazio esta como lombock
 	public FuncionarioRequestDTO(Funcionario cliente) {
 		this.nome = cliente.getNome();
-		this.email = cliente.getEmail();
 		this.telefone = cliente.getTelefone();
+		this.email = cliente.getEmail();
 		this.cpf = cliente.getCpf();
 		this.senha = cliente.getSenha();
+		this.salario = cliente.getSalario();
+		this.dataAdmissao = cliente.getDataAdmissao();
 	}
 	
 //	construtor para requisitar a informacao do cep
-	public FuncionarioRequestDTO(String nome, String email, String telefone,String cpf, String senha, /*Set<FuncionarioPerfil> clientePerfis,*/ String cep) {
+	public FuncionarioRequestDTO(String nome, String email, String telefone,String cpf, String senha, Double salario, LocalDate dataAdmissao, /*Set<FuncionarioPerfil> clientePerfis,*/ String cep) {
         this.nome = nome;
-        this.email = email;
         this.telefone = telefone;
-        this.senha = senha;
+        this.email = email;
         this.cpf = cpf;
+        this.senha = senha;
+        this.salario = salario;
+		this.dataAdmissao = dataAdmissao;
 //      this.clientePerfis = clientePerfis;
         this.cep = cep;
     }
 
+	public Set<FuncionarioPerfil> getFuncionarioPerfis() {
+		return funcionarioPerfis;
+	}
 
 }

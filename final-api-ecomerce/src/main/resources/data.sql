@@ -18,6 +18,13 @@ INSERT INTO endereco (cep, logradouro, bairro, localidade, uf) VALUES
 ('25660-000', 'Avenida Barão do Rio Branco', 'Alto da Serra', 'Petrópolis', 'RJ'),
 ('25685-000', 'Rua Teresa', 'Mosela', 'Petrópolis', 'RJ');
 
+--Insercao de Perfis--
+INSERT INTO PERFIL (ID, NOME) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_COMERCIAL'),
+(3, 'ROLE_DP'),
+(4, 'ROLE_RH');
+
 --Insercao de Clientes--
 INSERT INTO cliente (nome, telefone, email, cpf, senha, id_endereco) VALUES
 ('João Silva', '11987654321', 'joao.silva@gmail.com', '52373484080', '123456', 1),
@@ -30,6 +37,32 @@ INSERT INTO cliente (nome, telefone, email, cpf, senha, id_endereco) VALUES
 ('Juliana Lima', '11910987654', 'juliana.lima@gmail.com', '80090173023', '123456', 3),
 ('Rafael Oliveira', '11909876543', 'rafael.oliveira@gmail.com', '98796284030', '123456', 4),
 ('Camila Fernandes', '11908765432', 'camila.fernandes@gmail.com', '69258957040', '123456', 5);
+
+--Insercao de funcionarios--
+INSERT INTO funcionario (nome, telefone, email, cpf, senha, salario, data_admissao, id_endereco) VALUES
+('Leorick', '22998877601', 'leorick@email.com', '72403628093', '123456', 15000.00, '2024-05-01', 1),
+('Eduardha', '21987654321', 'eduardha@email.com', '20439515050', '123456', 18000.50, '2023-10-15', 2),
+('Mateus', '22991234567', 'mateus@email.com', '62102761053', '123456', 22000.75, '2022-11-20', 3),
+('Maria Vitoria', '21999887766', 'maria@email.com', '17499719090', '123456', 19050.90, '2021-09-10', 4),
+('Leonardo', '22991122334', 'leonardo@email.com', '93178199071', '123456', 1750.25, '2020-07-05', 5),
+('Gabriela', '21993456789', 'gabriela@email.com', '13299649000', '123456', 2100.00, '2024-03-12', 1),
+('Juliana', '22994567890', 'juliana@email.com', '55192511003', '123456', 1890.00, '2023-08-22', 2),
+('Rodrigo', '21995678901', 'rodrigo@email.com', '87549618070', '123456', 2050.00, '2022-06-18', 3),
+('Fernanda', '22996789012', 'fernanda@email.com', '09378586090', '123456', 2300.00, '2021-12-05', 4),
+('Lucas', '21997890123', 'lucas@email.com', '39258346050', '123456', 1700.00, '2020-01-25', 5);
+
+--Insercao de funcionarios_perfil--
+INSERT INTO funcionario_perfil (data_criacao, id_perfil, id_funcionario) VALUES
+('2025-06-01', 1, 1),
+('2025-06-01', 1, 2),
+('2025-06-01', 1, 3),
+('2025-06-01', 1, 4),
+('2025-06-01', 1, 5),
+('2025-06-01', 2, 6),
+('2025-06-01', 2, 7),
+('2025-06-01', 3, 8),
+('2025-06-01', 3, 9),
+('2025-06-01', 4, 10);
 
 -- Inserção de produtos --
 INSERT INTO produto (nome, preco, id_categoria) VALUES
