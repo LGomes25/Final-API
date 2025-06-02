@@ -5,13 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 public class PedidoProdutoDTO {
 
-    private String nome;
+    private Long id_produto;
     private Integer quantidade;
-    private Double valor;
-    private Integer id_produto;
+    private Double valorVenda;
+    private Double desconto;
 
 }
 

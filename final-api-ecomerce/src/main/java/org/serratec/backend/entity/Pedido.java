@@ -1,9 +1,11 @@
 package org.serratec.backend.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.serratec.backend.dto.PedidoRequestDTO;
 import org.serratec.backend.enums.StatusPedido;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -45,5 +47,13 @@ public class Pedido {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<PedidoProduto> produtosPedidos;
-	
+
+	public void setProduto(List<PedidoProduto> listaPedidoProduto) {
+	}
+	public LocalDate getData() {
+		return null;
+	}
+
+	public void setData(LocalDate now) {
+	}
 }
