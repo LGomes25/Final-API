@@ -1,24 +1,15 @@
 package org.serratec.backend.dto;
 
-import java.util.List;
-
-import org.serratec.backend.entity.Pedido;
-
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
+@Getter
 @Setter
-
-public class PedidoRequestDTO extends Pedido {
-     private Long id_cliente;
-     private List<PedidoProdutoDTO> produtos;
+public class PedidoRequestDTO {
      private String status;
-
-
-//     public PedidoProduto[] getProdutosPedidos() {
-//     }
-//
-//     public Thread getCliente() {
-//     }
-     
+     private Long idCliente;
+     private List<PedidoProdutoDTO> produtos;
 }
+
+

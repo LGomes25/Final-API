@@ -23,6 +23,6 @@ public class ListadeDesejos {
     @ManyToMany
     private List<Produto> produtos;
 
-    private String nome; //nome da minha lista de desejos.
+    private String nome; //nome da lista de desejos do cliente.
 
 }

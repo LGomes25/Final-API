@@ -22,7 +22,7 @@ public class PedidoProduto {
 	private Long id;
 
 	private Integer quantidade;
-	private Double precoVenda;
+	private Double valorVenda;
 	private Double desconto;
 
 	@JsonBackReference
@@ -35,15 +35,5 @@ public class PedidoProduto {
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
-	public void setValorVenda(Double valorVenda) {
 	}
 
-	public long getId_produto() {
-		return 0;
-	}
-
-	public double getValorVenda() {
-		return 0;
-	}
-
-}
