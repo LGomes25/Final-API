@@ -10,7 +10,7 @@ public class PedidoProdutoDTO {
 
     private String nome;
     private Integer quantidade;
-    private Double valor;
+    private Double precoVenda;
     private Integer id_produto;
 
 }

@@ -1,5 +1,6 @@
 package org.serratec.backend.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,5 +46,13 @@ public class Pedido {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<PedidoProduto> produtosPedidos;
-	
+
+	public void setProduto(List<PedidoProduto> listaPedidoProduto) {
+	}
+	public LocalDate getData() {
+		return null;
+	}
+
+	public void setData(LocalDate now) {
+	}
 }
