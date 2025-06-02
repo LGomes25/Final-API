@@ -20,18 +20,30 @@ public class PedidoProduto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Integer quantidade;
 	private Double precoVenda;
 	private Double desconto;
-	
+
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
-	
+
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
+
+	public void setValorVenda(Double valorVenda) {
+	}
+
+	public long getId_produto() {
+		return 0;
+	}
+
+	public double getValorVenda() {
+		return 0;
+	}
+
 }

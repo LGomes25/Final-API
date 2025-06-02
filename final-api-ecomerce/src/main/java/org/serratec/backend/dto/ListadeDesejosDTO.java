@@ -12,4 +12,7 @@ public class ListadeDesejosDTO {
     private Long clienteId;
     private String nome;
     private List<Long> produtoId;
+
+    public Iterable<? extends Long> getProdutos() {
+    }
 }
