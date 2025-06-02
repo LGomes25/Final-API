@@ -6,7 +6,13 @@ import org.serratec.backend.entity.PK.FuncionarioPerfilPK;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 
 @Entity
 public class FuncionarioPerfil {
@@ -15,9 +21,6 @@ public class FuncionarioPerfil {
 	private FuncionarioPerfilPK id = new FuncionarioPerfilPK();
 
 	private LocalDate dataCriacao;
-
-	public FuncionarioPerfil() {
-	}
 
 	public FuncionarioPerfil(Funcionario funcionario, Perfil perfil, LocalDate dataCriacao) {
 		id.setFuncionario(funcionario);

@@ -1,12 +1,10 @@
 package org.serratec.backend.dto;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.validator.constraints.br.CPF;
 import org.serratec.backend.entity.Funcionario;
-import org.serratec.backend.entity.FuncionarioPerfil;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
@@ -32,7 +30,6 @@ public class FuncionarioRequestDTO {
 
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email inválido")
-    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank(message = "Telefone é obrigatório")
@@ -47,7 +44,7 @@ public class FuncionarioRequestDTO {
     private String senha;
 
     @NotBlank(message = "O CEP é obrigatório.")
-    @Pattern(regexp = "\\d{8}", message = "CEP inválido. Deve conter exatamente 8 dígitos numéricos sem traço!!!!!!")
+    @Pattern(regexp = "\\d{8}", message = "CEP inválido. Deve conter exatamente 8 dígitos numéricos sem traço!")
     private String cep;
 
     
@@ -60,21 +57,22 @@ public class FuncionarioRequestDTO {
     @PastOrPresent
     private LocalDate dataAdmissao;
 
-	private Set<FuncionarioPerfil> funcionarioPerfis = new HashSet<>();
+    @NotNull(message = "Deve ser informado pelo menos um perfil.")
+    private Set<Long> perfisIds;
 
 //	construtor cheio, o vazio esta como lombock
-	public FuncionarioRequestDTO(Funcionario cliente) {
-		this.nome = cliente.getNome();
-		this.telefone = cliente.getTelefone();
-		this.email = cliente.getEmail();
-		this.cpf = cliente.getCpf();
-		this.senha = cliente.getSenha();
-		this.salario = cliente.getSalario();
-		this.dataAdmissao = cliente.getDataAdmissao();
+	public FuncionarioRequestDTO(Funcionario funcionario) {
+		this.nome = funcionario.getNome();
+		this.telefone = funcionario.getTelefone();
+		this.email = funcionario.getEmail();
+		this.cpf = funcionario.getCpf();
+		this.senha = funcionario.getSenha();
+		this.salario = funcionario.getSalario();
+		this.dataAdmissao = funcionario.getDataAdmissao();
 	}
 	
 //	construtor para requisitar a informacao do cep
-	public FuncionarioRequestDTO(String nome, String email, String telefone,String cpf, String senha, Double salario, LocalDate dataAdmissao, /*Set<FuncionarioPerfil> clientePerfis,*/ String cep) {
+	public FuncionarioRequestDTO(String nome, String email, String telefone,String cpf, String senha, Double salario, LocalDate dataAdmissao, Set<Long> perfisIds, String cep) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
@@ -82,12 +80,8 @@ public class FuncionarioRequestDTO {
         this.senha = senha;
         this.salario = salario;
 		this.dataAdmissao = dataAdmissao;
-//      this.clientePerfis = clientePerfis;
+		this.perfisIds = perfisIds;
         this.cep = cep;
     }
-
-	public Set<FuncionarioPerfil> getFuncionarioPerfis() {
-		return funcionarioPerfis;
-	}
 
 }
