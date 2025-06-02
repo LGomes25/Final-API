@@ -128,7 +128,7 @@ public class PedidoService {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
         return pedido.getPedidoProdutos().stream()
-                .mapToDouble(pp -> (pp.getValorVenda() - (pp.getDesconto() != null ? pp.getDesconto() : 0)) * pp.getQuantidade())
+                .mapToDouble(pp -> (pp.getValorVenda() - (pp.getDesconto() != null ? pp.getDesconto() : 0)) * pp.getQuantidade());
     }
 
     // Método utilitário de conversão para ResponseDTO
