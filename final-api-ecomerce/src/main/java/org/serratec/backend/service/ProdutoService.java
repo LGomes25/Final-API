@@ -52,6 +52,7 @@ public class ProdutoService {
         Produto produto = new Produto();
         produto.setNome(produtoRequestDTO.getNome());
         produto.setPreco(produtoRequestDTO.getPreco());
+        produto.setIsbn(produtoRequestDTO.getIsbn());
         produto.setCategoria(cat.get());
 
         produto = produtoRepository.save(produto);
@@ -70,6 +71,7 @@ public class ProdutoService {
 
         produto.setNome(produtoRequestDTO.getNome());
         produto.setPreco(produtoRequestDTO.getPreco());
+        produto.setIsbn(produtoRequestDTO.getIsbn());
 
         if (produtoRequestDTO.getIdCategoria() != null) {
             Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getIdCategoria());

@@ -27,6 +27,9 @@ public class Produto {
 	public Long id;
 	
 	private String nome;
+	
+	private String isbn;
+	
 	private Double preco;
 	
 	@JsonBackReference

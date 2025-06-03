@@ -13,11 +13,13 @@ public class ProdutoResponseDTO {
     private String nome;
     private Double preco;
     private Long categoriaId;
+    private String isbn;
 
     public ProdutoResponseDTO(Produto produto) {
         this.id = produto.getId();
         this.nome = produto.getNome();
         this.preco = produto.getPreco();
+        this.isbn = produto.getIsbn();
         this.categoriaId = produto.getCategoria().getId();
         }
     }
