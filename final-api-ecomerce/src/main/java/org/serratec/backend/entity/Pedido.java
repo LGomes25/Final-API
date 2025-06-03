@@ -10,6 +10,7 @@ import org.serratec.backend.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,22 +38,24 @@ public class Pedido {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status; 
-	
+
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<PedidoProduto> produtosPedidos;
 
 	public void setProduto(List<PedidoProduto> listaPedidoProduto) {
 	}
+	
 	public LocalDate getData() {
 		return null;
 	}
 
 	public void setData(LocalDate now) {
 	}
+	
 }
