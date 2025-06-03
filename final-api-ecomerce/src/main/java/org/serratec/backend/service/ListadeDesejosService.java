@@ -3,7 +3,8 @@ package org.serratec.backend.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.serratec.backend.dto.ListadeDesejosDTO;
+import org.serratec.backend.dto.ListadeDesejosRequestDTO;
+import org.serratec.backend.dto.ListadeDesejosResponseDTO;
 import org.serratec.backend.entity.ListadeDesejos;
 import org.serratec.backend.entity.Produto;
 import org.serratec.backend.repository.ClienteRepository;
@@ -24,64 +25,68 @@ public class ListadeDesejosService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public ListadeDesejosDTO criarListadeDesejos(ListadeDesejosDTO dto) {
-        ListadeDesejos listadeDesejos = new ListadeDesejos();
+    // ------------------ criar ------------------
+    public ListadeDesejosResponseDTO criarListadeDesejos(ListadeDesejosRequestDTO request) {
+        ListadeDesejos entidade = new ListadeDesejos();
 
-        listadeDesejos.setNome(dto.getNome());
-        listadeDesejos.setCliente(clienteRepository.findById(dto.getClienteId()).orElseThrow());
+        entidade.setNome(request.getNome());
+        entidade.setCliente(clienteRepository.findById(request.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado: " + request.getClienteId())));
 
         List<Produto> produtos = new ArrayList<>();
-        if (dto.getProdutoId() != null) {
-            for (Long idProduto : dto.getProdutoId()) {
-                produtos.add(produtoRepository.findById(idProduto).orElseThrow());
+        if (request.getProdutoId() != null) {
+            for (Long idProduto : request.getProdutoId()) {
+                produtos.add(produtoRepository.findById(idProduto)
+                        .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + idProduto)));
             }
         }
-        listadeDesejos.setProdutos(produtos);
-        ListadeDesejos salva = listadeDesejosRepository.save(listadeDesejos);
+        entidade.setProdutos(produtos);
+        ListadeDesejos salvo = listadeDesejosRepository.save(entidade);
 
-        // Retorna o DTO
-        ListadeDesejosDTO response = new ListadeDesejosDTO();
-        response.setId(salva.getId());
-        response.setClienteId(salva.getCliente().getId());
-        response.setNome(salva.getNome());
-        response.setProdutoId(
-                salva.getProdutos().stream().map(Produto::getId).toList()
-        );
-        return response;
+        return toResponseDTO(salvo);
     }
 
-    public ListadeDesejosDTO buscarPorId(Long id) {
-        ListadeDesejos l = listadeDesejosRepository.findById(id).orElseThrow();
-        ListadeDesejosDTO dto = new ListadeDesejosDTO();
+    // ------------------ buscar por id ------------------
+    public ListadeDesejosResponseDTO buscarPorId(Long id) {
+        ListadeDesejos l = listadeDesejosRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Lista de Desejos não encontrada: " + id));
+        return toResponseDTO(l);
+    }
+
+    // ------------------ listar por cliente ------------------
+    public List<ListadeDesejosResponseDTO> listarPorCliente(Long clienteId) {
+        return listadeDesejosRepository.findByClienteId(clienteId).stream()
+                .map(this::toResponseDTO)
+                .toList();
+    }
+
+    // ------------------ adicionar produto ------------------
+    public void adicionarProduto(Long listadeDesejosId, Long produtoId) {
+        ListadeDesejos l = listadeDesejosRepository.findById(listadeDesejosId)
+                .orElseThrow(() -> new RuntimeException("Lista não encontrada: " + listadeDesejosId));
+        Produto p = produtoRepository.findById(produtoId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + produtoId));
+        l.getProdutos().add(p);
+        listadeDesejosRepository.save(l);
+    }
+
+    // ------------------ remover produto ------------------
+    public void removerProduto(Long listadeDesejosId, Long produtoId) {
+        ListadeDesejos l = listadeDesejosRepository.findById(listadeDesejosId)
+                .orElseThrow(() -> new RuntimeException("Lista não encontrada: " + listadeDesejosId));
+        Produto p = produtoRepository.findById(produtoId)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + produtoId));
+        l.getProdutos().remove(p);
+        listadeDesejosRepository.save(l);
+    }
+
+    // ------------------ converter Entity → ResponseDTO ------------------
+    private ListadeDesejosResponseDTO toResponseDTO(ListadeDesejos l) {
+        ListadeDesejosResponseDTO dto = new ListadeDesejosResponseDTO();
         dto.setId(l.getId());
         dto.setClienteId(l.getCliente().getId());
         dto.setNome(l.getNome());
         dto.setProdutoId(l.getProdutos().stream().map(Produto::getId).toList());
         return dto;
-    }
-
-    public List<ListadeDesejosDTO> listarPorCliente(Long clienteId) {
-        return listadeDesejosRepository.findByClienteId(clienteId).stream().map(l -> {
-            ListadeDesejosDTO dto = new ListadeDesejosDTO();
-            dto.setId(l.getId());
-            dto.setClienteId(l.getCliente().getId());
-            dto.setNome(l.getNome());
-            dto.setProdutoId(l.getProdutos().stream().map(Produto::getId).toList());
-            return dto;
-        }).toList();
-    }
-
-    public void adicionarProduto(Long listadeDesejosId, Long produtoId) {
-        ListadeDesejos l = listadeDesejosRepository.findById(listadeDesejosId).orElseThrow();
-        Produto p = produtoRepository.findById(produtoId).orElseThrow();
-        l.getProdutos().add(p);
-        listadeDesejosRepository.save(l);
-    }
-
-    public void removerProduto(Long listadeDesejosId, Long produtoId) {
-        ListadeDesejos l = listadeDesejosRepository.findById(listadeDesejosId).orElseThrow();
-        Produto p = produtoRepository.findById(produtoId).orElseThrow();
-        l.getProdutos().remove(p);
-        listadeDesejosRepository.save(l);
     }
 }
