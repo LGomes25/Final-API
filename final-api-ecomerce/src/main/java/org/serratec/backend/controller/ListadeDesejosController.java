@@ -23,34 +23,34 @@ public class ListadeDesejosController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ListadeDesejosResponseDTO> buscarPorId(@PathVariable Long id) {
-        ListadeDesejosResponseDTO response = listadeDesejosService.buscarPorId(id);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/cliente/{clienteId}")
-    public ResponseEntity<List<ListadeDesejosResponseDTO>> listarPorCliente(
-            @PathVariable Long clienteId) {
-        List<ListadeDesejosResponseDTO> lista = listadeDesejosService.listarPorCliente(clienteId);
-        return ResponseEntity.ok(lista);
-    }
-
-    @PutMapping("/{id}/add/{produtoId}")
-    public ResponseEntity<Void> adicionarProduto(@PathVariable Long id, @PathVariable Long produtoId) {
-        listadeDesejosService.adicionarProduto(id, produtoId);
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{id}/remove/{produtoId}")
-    public ResponseEntity<Void> removerProduto(@PathVariable Long id, @PathVariable Long produtoId) {
-        listadeDesejosService.removerProduto(id, produtoId);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{id}/share")
-    public ResponseEntity<String> compartilhar(@PathVariable Long id) {
-        String url = "https://sebooline.com/listadesejos/" + id;
-        return ResponseEntity.ok(url);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<ListadeDesejosResponseDTO> buscarPorId(@PathVariable Long id) {
+//        ListadeDesejosResponseDTO response = listadeDesejosService.buscarPorId(id);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @GetMapping("/cliente/{clienteId}")
+//    public ResponseEntity<List<ListadeDesejosResponseDTO>> listarPorCliente(
+//            @PathVariable Long clienteId) {
+//        List<ListadeDesejosResponseDTO> lista = listadeDesejosService.listarPorCliente(clienteId);
+//        return ResponseEntity.ok(lista);
+//    }
+//
+//    @PutMapping("/{id}/add/{produtoId}")
+//    public ResponseEntity<Void> adicionarProduto(@PathVariable Long id, @PathVariable Long produtoId) {
+//        listadeDesejosService.adicionarProduto(id, produtoId);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @PutMapping("/{id}/remove/{produtoId}")
+//    public ResponseEntity<Void> removerProduto(@PathVariable Long id, @PathVariable Long produtoId) {
+//        listadeDesejosService.removerProduto(id, produtoId);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @GetMapping("/{id}/share")
+//    public ResponseEntity<String> compartilhar(@PathVariable Long id) {
+//        String url = "https://sebooline.com/listadesejos/" + id;
+//        return ResponseEntity.ok(url);
+//    }
 }
