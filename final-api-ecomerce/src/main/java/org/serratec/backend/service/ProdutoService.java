@@ -1,20 +1,21 @@
 package org.serratec.backend.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.serratec.backend.dto.ProdutoRequestDTO;
 import org.serratec.backend.dto.ProdutoResponseDTO;
 import org.serratec.backend.entity.Categoria;
 import org.serratec.backend.entity.Produto;
 import org.serratec.backend.exception.ProdutoException;
+import org.serratec.backend.repository.CategoriaRepository;
 import org.serratec.backend.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService {
@@ -23,7 +24,7 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     @Autowired
-    private CategoriaService categoriaService;
+    private CategoriaRepository catRepo;
 
     public List<ProdutoResponseDTO> listarTodos() {
         return produtoRepository.findAll().stream()
@@ -46,12 +47,12 @@ public class ProdutoService {
             throw new ProdutoException("Já existe um produto com o nome: " + produtoRequestDTO.getNome());
         }
 
-        Categoria categoria = categoriaService.buscarEntidadePorId(produtoRequestDTO.getIdCategoria());
-
+        Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getIdCategoria());
+        
         Produto produto = new Produto();
         produto.setNome(produtoRequestDTO.getNome());
         produto.setPreco(produtoRequestDTO.getPreco());
-        produto.setCategoria(categoria);
+        produto.setCategoria(cat.get());
 
         produto = produtoRepository.save(produto);
         return new ProdutoResponseDTO(produto);
@@ -71,8 +72,8 @@ public class ProdutoService {
         produto.setPreco(produtoRequestDTO.getPreco());
 
         if (produtoRequestDTO.getIdCategoria() != null) {
-            Categoria categoria = categoriaService.buscarEntidadePorId(produtoRequestDTO.getIdCategoria());
-            produto.setCategoria(categoria);
+            Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getIdCategoria());
+            produto.setCategoria(cat.get());
         }
 
         produto = produtoRepository.save(produto);
