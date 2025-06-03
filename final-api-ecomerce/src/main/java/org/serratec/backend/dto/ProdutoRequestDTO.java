@@ -14,13 +14,16 @@ import lombok.Setter;
 
 public class ProdutoRequestDTO {
 
-    @NotBlank(message = "O nome do produto é obrigatório")
+    @NotBlank(message = "O nome do livro é obrigatório")
     private String nome;
 
-    @NotNull(message = "O preço do produto é obrigatório")
+    @NotNull(message = "O preço do livro é obrigatório")
     private Double preco;
 
     @NotNull(message = "O ID da categoria é obrigatório.")
     private Long idCategoria;
+    
+    @NotBlank(message = "O ISBN do livro é obrigatório")
+    private String isbn;
 
 }

@@ -65,27 +65,27 @@ INSERT INTO funcionario_perfil (data_criacao, id_perfil, id_funcionario) VALUES
 ('2025-06-01', 4, 10);
 
 -- Inserção de produtos --
-INSERT INTO produto (nome, preco, id_categoria) VALUES
-('O Senhor dos Anéis', 49.90, 3),
-('Duna', 59.90, 1),
-('It: A Coisa', 39.90, 2),
-('O Código Da Vinci', 34.90, 10),
-('Sapiens: Uma Breve História da Humanidade', 44.90, 5),
-('Steve Jobs', 39.90, 6),
-('O Poder do Hábito', 34.90, 8),
-('Clean Code', 79.90, 7),
-('A Revolução dos Bichos', 29.90, 1),
-('O Hobbit', 39.90, 3),
-('1984', 29.90, 1),
-('A Arte da Guerra', 24.90, 5),
-('O Príncipe', 29.90, 4),
-('A Coragem de Ser Imperfeito', 27.90, 8),
-('O Milagre da Manhã', 24.90, 8),
-('A Menina que Roubava Livros', 34.90, 9),
-('Orgulho e Preconceito', 29.90, 9),
-('O Alquimista', 22.90, 1),
-('A Cabana', 32.90, 9),
-('O Homem em Busca de um Sentido', 26.90, 6);
+INSERT INTO produto (nome, preco, id_categoria, isbn) VALUES
+('O Senhor dos Anéis', 49.90, 3,'978-8595084759'),
+('Duna', 59.90, 1,'978-0441172719'),
+('It: A Coisa', 39.90, 2,'978-0451149510'),
+('O Código Da Vinci', 34.90, 10,'978-0307474278'),
+('Sapiens: Uma Breve História da Humanidade', 44.90, 5,'978-8525432186'),
+('Steve Jobs', 39.90, 6,'978-0307956231'),
+('O Poder do Hábito', 34.90, 8,'978-8539004119'),
+('Clean Code', 79.90, 7,'978-0132350884'),
+('A Revolução dos Bichos', 29.90, 1,'978-8551837726'),
+('O Hobbit', 39.90, 3,'978-8595084742'),
+('1984', 29.90, 1,'978-8535914849'),
+('A Arte da Guerra', 24.90, 5,'978-8594318602'),
+('O Príncipe', 29.90, 4,'978-8563560032'),
+('A Coragem de Ser Imperfeito', 27.90, 8,'978-8539004119'),
+('Mais esperto que o diabo', 24.90, 8,'978-8568014004'),
+('A Menina que Roubava Livros', 34.90, 9,'978-8598078175'),
+('Orgulho e Preconceito', 29.90, 9,'978-8572329798'),
+('Segredos Da Mente Milionaria', 22.90, 1,'978-8575422397'),
+('A Cabana', 32.90, 9,'978-8599296363'),
+('O Homem em Busca de um Sentido', 26.90, 6,'978-8531612824');
 
 -- Inserção de Pedidos --
 INSERT INTO pedido (data_pedido, status, id_cliente) VALUES
@@ -111,7 +111,7 @@ INSERT INTO pedido (data_pedido, status, id_cliente) VALUES
 ('2023-09-12', 'CANCELADO', 10);
 
 -- Inserção de dados na tabela pedido_produto --
-INSERT INTO pedido_produto (quantidade, preco_venda, desconto, id_pedido, id_produto) VALUES
+INSERT INTO pedido_produto (quantidade, valor_venda, desconto, id_pedido, id_produto) VALUES
 (2, 49.90, 0.00, 1, 1),
 (1, 59.90, 5.00, 1, 2),
 (3, 39.90, 0.00, 2, 3),
