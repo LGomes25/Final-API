@@ -1,8 +1,10 @@
 package org.serratec.backend.controller;
 
-import org.serratec.backend.dto.ListadeDesejosDTO;
+import org.serratec.backend.dto.ListadeDesejosRequestDTO;
+import org.serratec.backend.dto.ListadeDesejosResponseDTO;
 import org.serratec.backend.service.ListadeDesejosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,39 +13,44 @@ import java.util.List;
 @RequestMapping("/listaDeDesejos")
 public class ListadeDesejosController {
 
-        @Autowired
-        private ListadeDesejosService listadeDesejosService;
+    @Autowired
+    private ListadeDesejosService listadeDesejosService;
 
-        @PostMapping
-        public ListadeDesejosDTO criarListadeDesejos(@RequestBody ListadeDesejosDTO dto) {
-            return listadeDesejosService.criarListadeDesejos(dto);
-        }
-
-        @GetMapping("/{id}")
-        public ListadeDesejosDTO buscarPorId(@PathVariable Long id) {
-            return listadeDesejosService.buscarPorId(id);
-        }
-
-        @GetMapping("/cliente/{clienteId}")
-        public List<ListadeDesejosDTO> listarPorCliente(@PathVariable Long clienteId) {
-            return listadeDesejosService.listarPorCliente(clienteId);
-        }
-
-        @PutMapping("/{id}/add/{produtoId}")
-        public void adicionarProduto(@PathVariable Long id, @PathVariable Long produtoId) {
-            listadeDesejosService.adicionarProduto(id, produtoId);
-        }
-
-        @PutMapping("/{id}/remove/{produtoId}")
-        public void removerProduto(@PathVariable Long id, @PathVariable Long produtoId) {
-            listadeDesejosService.removerProduto(id, produtoId);
-        }
-
-        // Endpoint para compartilhar a lista
-        @GetMapping("/{id}/share")
-        public String compartilhar(@PathVariable Long id) {
-            return "https://sebooline.com/listadesejos/" + id;
-        }
+    @PostMapping
+    public ResponseEntity<ListadeDesejosResponseDTO> criarListadeDesejos(
+            @RequestBody ListadeDesejosRequestDTO requestDto) {
+        ListadeDesejosResponseDTO response = listadeDesejosService.criarListadeDesejos(requestDto);
+        return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ListadeDesejosResponseDTO> buscarPorId(@PathVariable Long id) {
+        ListadeDesejosResponseDTO response = listadeDesejosService.buscarPorId(id);
+        return ResponseEntity.ok(response);
+    }
 
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<ListadeDesejosResponseDTO>> listarPorCliente(
+            @PathVariable Long clienteId) {
+        List<ListadeDesejosResponseDTO> lista = listadeDesejosService.listarPorCliente(clienteId);
+        return ResponseEntity.ok(lista);
+    }
+
+    @PutMapping("/{id}/add/{produtoId}")
+    public ResponseEntity<Void> adicionarProduto(@PathVariable Long id, @PathVariable Long produtoId) {
+        listadeDesejosService.adicionarProduto(id, produtoId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/remove/{produtoId}")
+    public ResponseEntity<Void> removerProduto(@PathVariable Long id, @PathVariable Long produtoId) {
+        listadeDesejosService.removerProduto(id, produtoId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/share")
+    public ResponseEntity<String> compartilhar(@PathVariable Long id) {
+        String url = "https://sebooline.com/listadesejos/" + id;
+        return ResponseEntity.ok(url);
+    }
+}

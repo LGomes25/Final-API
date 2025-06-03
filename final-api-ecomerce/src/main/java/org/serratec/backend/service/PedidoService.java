@@ -42,7 +42,7 @@ public class PedidoService {
     public PedidoResponseDTO criarPedido(PedidoRequestDTO dto) {
         Pedido pedido = new Pedido();
         pedido.setStatus(StatusPedido.PENDENTE);       					// --->Define o status do pedido<---
-        pedido.setDataPedido(LocalDateTime.now());                      // Seta a data/hora atual
+        pedido.setDataPedido(LocalDateTime.now());// Seta a data/hora atual
 
         Cliente cliente = clienteRepository.findById(dto.getIdCliente())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));// Busca o cliente no banco
