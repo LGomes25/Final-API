@@ -23,12 +23,6 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repoCliente;
 	
-//	@Autowired
-//	private PerfilService perfilService;
-//	
-//	@Autowired
-//	private ClientePerfilRepository clientePerfilRepository;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -71,17 +65,9 @@ public class ClienteService {
 		clienteEntity.setSenha(passwordEncoder.encode(cliente.getSenha()));
 		clienteEntity.setEndereco(end);									//Inclui endereco no objeto
 		
-//		for (ClientePerfil up: cliente.getClientePerfis()) {
-//			up.setPerfil(perfilService.buscar(up.getPerfil().getId()));
-//			up.setCliente(clienteEntity);
-//			up.setDataCriacao(LocalDate.now());
-//		}
-		
 		clienteEntity=repoCliente.save(clienteEntity);
 		
-//		clientePerfilRepository.saveAll(cliente.getClientePerfis());
-		
-		mailConfig.enviar(clienteEntity.getEmail(), "Confirmação de Cadastro", cliente.toString());
+//		mailConfig.enviar(clienteEntity.getEmail(), "Confirmação de Cadastro", cliente.toString());
 	
 		return new ClienteResponseDTO(clienteEntity.getId(), clienteEntity.getNome(), clienteEntity.getTelefone(),clienteEntity.getEmail());
 	}
