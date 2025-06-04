@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ListadeDesejosResponseDTO {
-    private Long id;
-    private String nome;
-    private List<String> nomesprodutos;
+    private Long idCliente;
+    private String nomeLista;
+    private List<String> livros;
 }
