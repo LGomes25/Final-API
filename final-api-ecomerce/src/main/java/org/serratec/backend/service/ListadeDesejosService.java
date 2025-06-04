@@ -36,16 +36,19 @@ public class ListadeDesejosService {
 
         ListadeDesejos lista = new ListadeDesejos();
         lista.setCliente(cliente);
+        lista.setNome(request.getNomeLista());
         lista.setProdutos(produtos);
 
-        ListadeDesejos listaSalva = listadeDesejosRepository.save(lista);
+        listadeDesejosRepository.save(lista);
 
         ListadeDesejosResponseDTO dto = new ListadeDesejosResponseDTO();
-        dto.setId(lista.getId());
-        dto.setNome(lista.getCliente().getNome());
-        dto.setNomesprodutos(
-                lista.getProdutos().stream().map(Produto::getNome).toList()
-        );
+        dto.setIdCliente(lista.getId());
+        dto.setNomeLista(request.getNomeLista());
+        dto.setLivros(
+	                lista.getProdutos()
+	                .stream()
+	                .map(Produto::getNome)
+	                .toList());
         return dto;
 
 

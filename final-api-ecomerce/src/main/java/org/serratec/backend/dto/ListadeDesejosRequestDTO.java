@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class ListadeDesejosRequestDTO {
     private Long clienteId;
-    //private String nome;
+    private String nomeLista;
     private List<Long> produtoId;
 }

@@ -7,7 +7,6 @@ import org.serratec.backend.entity.Cliente;
 import org.serratec.backend.entity.Produto;
 import org.serratec.backend.exception.AvaliacaoExistenteException;
 import org.serratec.backend.exception.ClienteNotFoundException;
-import org.serratec.backend.exception.ProdutoException;
 import org.serratec.backend.exception.ProdutoNotFoundException;
 import org.serratec.backend.repository.AvaliacaoRepository;
 import org.serratec.backend.repository.ClienteRepository;
