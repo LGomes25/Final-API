@@ -22,7 +22,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
-@Configuration
+//@Configuration
 public class SecurityConfig {
 	@Autowired
 	private JwtUtil jwtUtil;
