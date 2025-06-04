@@ -1,12 +1,144 @@
 {
 	"info": {
 		"_postman_id": "3df6522b-acf6-436e-b2e8-39f4f880179c",
-		"name": "zFinal",
+		"name": "Testes Postman Grupo 4",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "44822458",
 		"_collection_link": "https://lgomes-8289.postman.co/workspace/Residencia-API~9edd5a9f-9072-4e23-8b04-9a6e63f9659b/collection/44822458-3df6522b-acf6-436e-b2e8-39f4f880179c?action=share&source=collection_link&creator=44822458"
 	},
 	"item": [
+		{
+			"name": "ListaDesejo Inserir",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"clienteId\":2,\n    \"nomeLista\": \"Desejos de Maria\",\n    \"produtoId\":[1,3,2]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/listaDeDesejos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listaDeDesejos"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliação inserir",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"idProduto\": 2,\n  \"idCliente\": 1,\n  \"nota\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliacao Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer seu_token_jwt_aqui",
+						"description": "Necessário para rotas protegidas"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes",
+						"1"
+					]
+				},
+				"description": "Remove uma avaliação específica por ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliações Listar por Produto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"O Testador\",\r\n        \"preco\": 22.9,\r\n        \"idCategoria\": 1\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes/produto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes",
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "CEP Buscar Inserir",
 			"protocolProfileBehavior": {
