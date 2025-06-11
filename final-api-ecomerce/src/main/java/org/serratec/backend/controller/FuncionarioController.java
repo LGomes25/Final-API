@@ -2,6 +2,7 @@ package org.serratec.backend.controller;
 
 import java.util.List;
 
+import org.serratec.backend.dto.FuncionarioPerfilResponseDTO;
 import org.serratec.backend.dto.FuncionarioRequestDTO;
 import org.serratec.backend.dto.FuncionarioResponseDTO;
 import org.serratec.backend.service.FuncionarioService;
@@ -44,6 +45,19 @@ public class FuncionarioController {
 		return ResponseEntity.ok(service.listar());
 	}
 	
+	@Operation(summary = "Lista todos os funcionarios com respectivos perfis", description = "A resposta lista todos os funcionariose seus perfis: id, nome e perfis.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", content = {
+			@Content(schema = @Schema(implementation = FuncionarioResponseDTO.class), mediaType = "application/json") }, description = "Retorna todos os funcionarios e perfis"),
+			@ApiResponse(responseCode = "401", description = "Erro de autenticação"),
+			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
+			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
+			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
+	@GetMapping("/perfil")
+	public ResponseEntity<List<FuncionarioPerfilResponseDTO>> lstrPerfil(){
+		return ResponseEntity.ok(service.listarPerfil());
+	}
+	
+	
 	@Operation(summary = "Cadastra um funcionarios", description = "A resposta lista os dados do funcionario inserido: id, nome, telefone e email.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", content = {
 			@Content(schema = @Schema(implementation = FuncionarioResponseDTO.class), mediaType = "application/json") }, description = "Cadastra um funcionario"),
@@ -76,7 +90,7 @@ public class FuncionarioController {
 			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
 			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
 			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
-	@DeleteMapping("{id}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
 		service.remover(id);

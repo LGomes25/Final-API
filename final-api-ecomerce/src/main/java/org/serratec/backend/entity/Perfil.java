@@ -3,6 +3,8 @@ package org.serratec.backend.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ public class Perfil {
 	private Long id;
 	private String nome;
 	
+	@JsonIgnore
 	@Column(nullable = false)
 	@OneToMany(mappedBy = "id.perfil")
 	private Set<FuncionarioPerfil> funcionarioPerfis = new HashSet<>();

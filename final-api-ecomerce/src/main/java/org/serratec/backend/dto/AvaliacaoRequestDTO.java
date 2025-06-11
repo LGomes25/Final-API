@@ -1,5 +1,7 @@
 package org.serratec.backend.dto;
 
+import org.serratec.backend.entity.Avaliacao;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AvaliacaoRequestDTO {
 
+	
     @NotNull(message = "O ID do produto é obrigatório")
     private Long idProduto;
 
@@ -25,4 +28,16 @@ public class AvaliacaoRequestDTO {
     @Min(value = 1, message = "A nota mínima é 1")
     @Max(value = 5, message = "A nota máxima é 5")
     private Integer nota;
+
+	public AvaliacaoRequestDTO(Avaliacao avaliacao) {
+		this.nota = avaliacao.getNota();
+		this.idProduto = avaliacao.getProduto().getId();
+		this.idCliente = avaliacao.getCliente().getId();
+	}
+    
+    
+    
+    
+    
+    
 }

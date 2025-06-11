@@ -30,22 +30,15 @@ public class PedidoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    /**
-     * Cria um novo pedido a partir dos dados do DTO de requisição.
-     * 1. Define status e data do pedido.
-     * 2. Busca o cliente no banco.
-     * 3. Monta a lista de produtos do pedido.
-     * 4. Salva o pedido no banco.
-     * 5. Retorna o DTO de resposta com todos os dados do pedido criado.
-     */
+    //Criar um pedido
     @Transactional
     public PedidoResponseDTO criarPedido(PedidoRequestDTO dto) {
         Pedido pedido = new Pedido();
-        pedido.setStatus(StatusPedido.PENDENTE);       					// --->Define o status do pedido<---
-        pedido.setDataPedido(LocalDateTime.now());// Seta a data/hora atual
+        pedido.setStatus(StatusPedido.PENDENTE);       					// Define o status inicial do pedido
+        pedido.setDataPedido(LocalDateTime.now());						// Grava a data/hora atual do sistema
 
         Cliente cliente = clienteRepository.findById(dto.getIdCliente())
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));// Busca o cliente no banco
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));	// Busca o cliente no banco
         
         pedido.setCliente(cliente);
 
@@ -60,7 +53,8 @@ public class PedidoService {
             pedidoProduto.setProduto(produto);            // Relaciona o produto
             pedidoProduto.setQuantidade(item.getQuantidade());
             pedidoProduto.setValorVenda(item.getValorVenda());
-            pedidoProduto.setDesconto(item.getDesconto());
+            pedidoProduto.setDesconto(item.getDesconto() != null ? item.getDesconto() : 0.0);
+            
 
             listaPedidoProdutos.add(pedidoProduto);       // Adiciona na lista de produtos do pedido
         }
@@ -68,32 +62,24 @@ public class PedidoService {
 
         pedido = pedidoRepository.save(pedido);           // Salva o pedido no banco
 
-        return formatoPedidoResponseDTO(pedido);               // Retorna DTO de resposta com os dados do pedido criado
+        return formatoPedidoResponseDTO(pedido);          // Retorna DTO de resposta com os dados do pedido criado
     }
 
-    /**
-     * Busca um pedido pelo ID.
-     * Se existir, retorna os dados no formato de resposta.
-     */
+    //Busca um pedido pelo ID.
     public PedidoResponseDTO buscarPedidoPorId(Long id) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
         return formatoPedidoResponseDTO(pedido);
     }
 
-    /**
-     * Lista todos os pedidos cadastrados.
-     * Retorna cada pedido convertido para o formato DTO de resposta.
-     */
+    //Lista todos os pedidos cadastrados.
     public List<PedidoResponseDTO> listarPedidos() {
         return pedidoRepository.findAll().stream()
                 .map(this::formatoPedidoResponseDTO)
                 .toList();
     }
 
-    /**
-     * Remove um pedido pelo seu ID, se ele existir.
-     */
+    //Remove um pedido pelo seu ID, se ele existir.
     public void deletarPedido(Long id) {
         if (!pedidoRepository.existsById(id)) {
             throw new RuntimeException("Pedido não encontrado");
@@ -101,9 +87,7 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 
-    /**
-     * Altera apenas o status de um pedido, sem mexer nos outros dados.
-     */
+    //Altera apenas o status de um pedido, sem mexer nos outros dados.
     public PedidoResponseDTO alterarStatus(Long id, StatusPedido status) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
@@ -115,27 +99,16 @@ public class PedidoService {
     }
 
     /**
-     * Calcula o valor total do pedido, somando (valorVenda - desconto) * quantidade para cada item.
-     */
-    public Double totalizarPedido(Long id) {
-        Pedido pedido = pedidoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
-        return pedido.getProdutosPedidos().stream()
-                .mapToDouble(pp -> (pp.getValorVenda() - (pp.getDesconto() != null ? pp.getDesconto() : 0)) * pp.getQuantidade())
-                .sum();
-    }
-
-    /**
      * Método utilitário que converte a entidade Pedido para o DTO de resposta.
-     * Monta a lista de produtos e calcula o total.
+     * Monta a lista de produtos e calcula o subTotal com descontos e o total.
      */
     private PedidoResponseDTO formatoPedidoResponseDTO(Pedido pedido) {
         PedidoResponseDTO dto = new PedidoResponseDTO();
         dto.setId(pedido.getId());
         dto.setStatus(pedido.getStatus());
-        dto.setDataPedido(pedido.getDataPedido()); // LocalDateTime
+        dto.setDataPedido(pedido.getDataPedido()); 			// LocalDateTime
         dto.setCliente(pedido.getCliente().getId());
-
+        
         // Monta lista de produtos do pedido
         List<PedidoProdutoDTO> itens = pedido.getProdutosPedidos().stream().map(pp -> {
             PedidoProdutoDTO itemDto = new PedidoProdutoDTO();
@@ -143,11 +116,19 @@ public class PedidoService {
             itemDto.setQuantidade(pp.getQuantidade());
             itemDto.setValorVenda(pp.getValorVenda());
             itemDto.setDesconto(pp.getDesconto());
+            itemDto.setSubTotal((pp.getQuantidade()*pp.getValorVenda())-pp.getDesconto()); //calcula o subtotal por pedido
             return itemDto;
         }).toList();
+        
+        Double total = 0.0;										//Criar total e percorre lista acumulando.
+        for (PedidoProdutoDTO subtotal : itens) {
+			total += subtotal.getSubTotal();
+		}
 
         dto.setProdutos(itens);
-        dto.setTotal(totalizarPedido(pedido.getId()));
+        
+        dto.setTotal(total);
+        
         return dto;
     }
 }

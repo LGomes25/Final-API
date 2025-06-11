@@ -4,14 +4,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.serratec.backend.config.MailConfig;
+import org.serratec.backend.dto.FuncionarioPerfilResponseDTO;
 import org.serratec.backend.dto.FuncionarioRequestDTO;
 import org.serratec.backend.dto.FuncionarioResponseDTO;
 import org.serratec.backend.entity.Endereco;
 import org.serratec.backend.entity.Funcionario;
 import org.serratec.backend.entity.FuncionarioPerfil;
 import org.serratec.backend.exception.FuncionarioException;
+import org.serratec.backend.repository.FuncionarioPerfilRepository;
 import org.serratec.backend.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +30,9 @@ public class FuncionarioService {
 
     @Autowired
     private PerfilService perfilService;
+    
+    @Autowired
+    private FuncionarioPerfilRepository repoFuncPerfil;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -46,6 +52,25 @@ public class FuncionarioService {
 		return funcionariosDTO;
 	}
 	
+	public List<FuncionarioPerfilResponseDTO> listarPerfil() {
+		List<Funcionario> funcionarios = repoFuncionario.findAll();
+		List<FuncionarioPerfil> perfis = repoFuncPerfil.findAll();
+		
+		List<FuncionarioPerfilResponseDTO> funcionariosDTO = new ArrayList<>();
+		
+		for (Funcionario func : funcionarios) {
+			FuncionarioPerfilResponseDTO funcionarioDTO = new FuncionarioPerfilResponseDTO();
+			funcionarioDTO.setId(func.getId());
+			funcionarioDTO.setNome(func.getNome());
+			funcionarioDTO.setPerfis(perfis.stream()
+										.filter(p->p.getFuncionario().getId().equals(func.getId()))
+										.map(p->p.getPerfil().getNome())
+										.collect(Collectors.toList()));
+			funcionariosDTO.add(funcionarioDTO);
+		}
+		return funcionariosDTO;
+	}
+	
 	@Transactional
 	public FuncionarioResponseDTO inserir(FuncionarioRequestDTO funcionario) {
 		Optional<Funcionario> cpfExp = repoFuncionario.findByCpf(funcionario.getCpf());
@@ -60,7 +85,6 @@ public class FuncionarioService {
 		if(emailExp.isPresent()) {
 			throw new FuncionarioException("Email já cadastrado");
 		}
-		
 		
 		Funcionario funcionarioEntity = new Funcionario();
 		funcionarioEntity.setNome(funcionario.getNome());
@@ -114,6 +138,8 @@ public class FuncionarioService {
 		if(!funcionario.getPerfisIds().isEmpty()) {
 	    
 			funcionarioEntity.getFuncionarioPerfis().clear();
+			
+			
 
 			List<FuncionarioPerfil> fps = new ArrayList<>(); // Cria lista de perfis no funcionario
 

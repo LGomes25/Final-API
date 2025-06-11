@@ -61,9 +61,6 @@ public class FuncionarioPerfilPK {
 		FuncionarioPerfilPK other = (FuncionarioPerfilPK) obj;
 		return Objects.equals(perfil, other.perfil) && Objects.equals(funcionario, other.funcionario);
 	}
-	
-	
-	
 }
 	
 
