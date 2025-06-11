@@ -104,4 +104,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.badRequest().body(ex.getMessage());
 	}
 	
+	@ExceptionHandler(CupomException.class)
+	protected ResponseEntity<Object> handleCupomException(CupomException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
 }

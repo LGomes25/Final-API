@@ -1,0 +1,1178 @@
+{
+	"info": {
+		"_postman_id": "17574d8e-370b-4a41-8173-60f21c89a745",
+		"name": "EndPoints Sebo Online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44822458",
+		"_collection_link": "https://lgomes-8289.postman.co/workspace/Residencia-API~9edd5a9f-9072-4e23-8b04-9a6e63f9659b/collection/44822458-17574d8e-370b-4a41-8173-60f21c89a745?action=share&source=collection_link&creator=44822458"
+	},
+	"item": [
+		{
+			"name": "CEP Buscar Inserir",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/enderecos/69316740",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"enderecos",
+						"69316740"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente Listar All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente Inserir 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Michelle\",\r\n    \"email\":\"michelle@hotmail.com\",\r\n    \"cpf\":\"09489230081\",\r\n    \"telefone\":\"22998877600\",\r\n    \"senha\":\"123456\",\r\n    \"cep\":\"85503250\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Michelle\",\r\n    \"email\":\"michelle2@hotmail.com\",\r\n    \"telefone\":\"22998877660\",\r\n    \"senha\":123456,\r\n    \"cep\":\"27949100\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Leonardo\",\r\n    \"email\":\"leo@hotmail.com\",\r\n    \"cpf\":\"86454922022\",\r\n    \"telefone\":\"22998877660\",\r\n    \"cep\":\"27949100\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/clientes/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"clientes",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categoria Listar All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categoria Inserir 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Clube do Bolinha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categoria Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Luluzinha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categoria Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Leonardo\",\r\n    \"email\":\"leo@hotmail.com\",\r\n    \"cpf\":\"86454922022\",\r\n    \"telefone\":\"22998877660\",\r\n    \"cep\":\"27949100\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Funcionario Listar All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/funcionarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"funcionarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Funcionario perfil Listar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/funcionarios/perfil",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"funcionarios",
+						"perfil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Funcionario Inserir 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Daniela\",\r\n    \"telefone\":\"22998877600\",\r\n    \"email\":\"daniela@hotmail.com\",\r\n    \"cpf\":\"58462959080\",\r\n    \"senha\":\"123456\",\r\n    \"salario\": 1589.36,\r\n    \"dataAdmissao\":\"2025-03-01\",\r\n    \"cep\":\"69033698\",\r\n    \"perfisIds\":[1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/funcionarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"funcionarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Funcionario Atualizar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AZ21haWwuY29tIiwiZXhwIjoxNzQ5MDE3NDI0fQ.6bJXQDFwL88ZfA5o9gp69tlk9PIaFbdJPe5UtzerBt0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Leorick\",\r\n    \"telefone\":\"22998877600\",\r\n    \"email\":\"j@hotmail.com\",\r\n    \"cpf\":\"72403628093\",\r\n    \"senha\":\"123456\",\r\n    \"salario\": 1589.36,\r\n    \"dataAdmissao\":\"2025-03-01\",\r\n    \"cep\":\"69033698\",\r\n    \"perfisIds\":[4]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/funcionarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"funcionarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Funcionario Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\":\"Leonardo\",\r\n    \"email\":\"leo@hotmail.com\",\r\n    \"cpf\":\"86454922022\",\r\n    \"telefone\":\"22998877660\",\r\n    \"cep\":\"27949100\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/funcionario/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"funcionario",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Listar All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Listar Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Inserir 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"Os Consertadores\",\r\n        \"preco\": 2502.9,\r\n        \"idCategoria\": 2,\r\n        \"isbn\":\"978-8535914849\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Atualizar id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"Os Destruidores\",\r\n        \"preco\": 2502.9,\r\n        \"idCategoria\": 3,\r\n        \"isbn\":\"978-8535914849\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Excluir id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/21",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos Lista all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"O Testador\",\r\n        \"preco\": 22.9,\r\n        \"idCategoria\": 1\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos Listar id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pedidos/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos Inserir",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\r\n        \"idCliente\": 4,\r\n            \"produtos\": [ \r\n                {\"idProduto\":4,\r\n                \"quantidade\":1,\r\n                \"valorVenda\":50.0\r\n                },\r\n                {\"idProduto\":6,\r\n                \"quantidade\":2,\r\n                \"valorVenda\":50.0,\r\n                \"desconto\":30.0\r\n                }\r\n\r\n             ] \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedidos Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\r\n        \"idCliente\": 4,\r\n        \"status\":\"PROCESSANDO\",\r\n            \"produtos\": [ \r\n                {\"idProduto\":4,\r\n                \"quantidade\":1,\r\n                \"valorVenda\":50.0\r\n                },\r\n                {\"idProduto\":6,\r\n                \"quantidade\":2,\r\n                \"valorVenda\":50.0,\r\n                \"desconto\":20.0\r\n                }\r\n\r\n             ] \r\n    }",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/pedidos/22/status?status=PROCESSANDO",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"22",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "PROCESSANDO"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedido Excluir Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/pedidos/28",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pedidos",
+						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"joao@hotmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ISBN Buscar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/isbn/978-8535914849",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"isbn",
+						"978-8535914849"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Filtro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/faixa?faixa1=25&faixa2=45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"faixa"
+					],
+					"query": [
+						{
+							"key": "faixa1",
+							"value": "25"
+						},
+						{
+							"key": "faixa2",
+							"value": "45"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto Pag",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"O Testador\",\r\n        \"preco\": 22.9,\r\n        \"idCategoria\": 1\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/pagina",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"pagina"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListaDesejo Listar All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/listaDeDesejos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listaDeDesejos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListaDesejo Listar Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/listaDeDesejos/49",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listaDeDesejos",
+						"49"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListaDesejo Listar Id Cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/listaDeDesejos/cliente/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listaDeDesejos",
+						"cliente",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListaDesejo Inserir",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"clienteId\":4,\n    \"nomeLista\": \"Desejos de Maria\",\n    \"produtoId\":[1,15,16]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/listaDeDesejos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listaDeDesejos"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "ListaDesejo Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"clienteId\":4,\n    \"nomeLista\": \"Desejos de Maria\",\n    \"produtoId\":[1,15,16]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/listaDeDesejos/3300",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"listaDeDesejos",
+						"3300"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliação Listar All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliações Listar por Produto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"O Testador\",\r\n        \"preco\": 22.9,\r\n        \"idCategoria\": 1\r\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes/produto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes",
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliação inserir",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"idProduto\": 2,\n  \"idCliente\": 7,\n  \"nota\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliacao Atualiza Id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idProduto\": 2,\r\n  \"idCliente\": 4,\r\n  \"nota\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliacao Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer seu_token_jwt_aqui",
+						"description": "Necessário para rotas protegidas"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/avaliacoes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"avaliacoes",
+						"1"
+					]
+				},
+				"description": "Remove uma avaliação específica por ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Cupom Listar All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"teste126\",\r\n    \"valorDesconto\":10.25,\r\n    \"validadeData\":\"2025-07-01\",\r\n    \"usado\":\"false\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cupons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cupons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cupom Listar por Codigo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"teste126\",\r\n    \"valorDesconto\":10.25,\r\n    \"validadeData\":\"2025-07-01\",\r\n    \"usado\":\"false\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cupons/codigo/teste1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cupons",
+						"codigo",
+						"teste1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cupom Criar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"teste3\",\r\n    \"valorDesconto\":10.25,\r\n    \"validadeData\":\"2025-07-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cupons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cupons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cupom Atualizar por Codigo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"teste3\",\r\n    \"valorDesconto\":20.90,\r\n    \"validadeData\":\"2025-10-01\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cupons/codigo/teste3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cupons",
+						"codigo",
+						"teste3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cupom Excluir por Codigo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"teste126\",\r\n    \"valorDesconto\":10.25,\r\n    \"validadeData\":\"2025-07-01\",\r\n    \"usado\":\"false\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cupons/teste4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cupons",
+						"teste4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
