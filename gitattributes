@@ -1,0 +1,8 @@
+# Define regras de fim de linha
+* text=auto
+
+# Força arquivos JSON a usarem LF (Unix)
+*.json text eol=lf
+
+# Arquivos de banco de dados H2 são binários e não devem ter conversão de linha
+*.db binary
