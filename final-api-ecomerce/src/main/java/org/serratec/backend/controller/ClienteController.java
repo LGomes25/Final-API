@@ -64,7 +64,7 @@ public class ClienteController {
 			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
 			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
 			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
-	@PutMapping ("{id}")
+	@PutMapping ("/{id}")
 	public ResponseEntity<ClienteResponseDTO> atualizar(@PathVariable Long id, @RequestBody ClienteRequestDTO cliente){ 
 		return ResponseEntity.ok(service.atualizar(id, cliente));
 	}
@@ -76,10 +76,10 @@ public class ClienteController {
 			@ApiResponse(responseCode = "403", description = "Não há permissão para acessar o recurso"),
 			@ApiResponse(responseCode = "404", description = "Recurso não encontrado"),
 			@ApiResponse(responseCode = "505", description = "Exceção interna da aplicação") })
-	@DeleteMapping("{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> remover(@PathVariable Long id) {
 		service.remover(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 }

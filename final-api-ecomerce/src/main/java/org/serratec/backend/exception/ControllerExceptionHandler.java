@@ -94,5 +94,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.badRequest().body(ex.getMessage());
 	}
 
+	@ExceptionHandler(AvaliacaoExistenteException.class)
+	protected ResponseEntity<Object> handleAvaliacaoExistenteException(AvaliacaoExistenteException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
+	
+	@ExceptionHandler(ListadeDesejosException.class)
+	protected ResponseEntity<Object> handleListadeDesejosException(ListadeDesejosException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
 	
 }

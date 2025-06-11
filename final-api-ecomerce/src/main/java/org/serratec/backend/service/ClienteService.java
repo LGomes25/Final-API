@@ -91,7 +91,7 @@ public class ClienteService {
 		
 		clienteEntity=repoCliente.save(clienteEntity);
 		
-		mailConfig.enviar(clienteEntity.getEmail(), "Confirmação de Atualização de Cadastro", cliente.toString());
+//		mailConfig.enviar(clienteEntity.getEmail(), "Confirmação de Atualização de Cadastro", cliente.toString());
 		
 		return new ClienteResponseDTO(clienteEntity.getId(), 
 										clienteEntity.getNome(), 

@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Collections; 
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority; 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -72,6 +72,7 @@ public class Funcionario implements UserDetails {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.funcionario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<FuncionarioPerfil> funcionarioPerfis = new HashSet<>();
 
