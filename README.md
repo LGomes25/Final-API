@@ -1,15 +1,104 @@
-# Sebo Online - E-commerce de Livros Usados
+# 📚 Sebo Online - API E-commerce de Livros Usados
 
-Bem-vindo ao repositório do Sebo Online, um projeto de e-commerce dedicado à venda de livros usados. Este projeto foi criado com o intuito de facilitar a compra e venda de livros em segunda mão, proporcionando uma experiência agradável e intuitiva tanto para compradores quanto para vendedores. Acreditamos no poder da leitura e na importância de dar uma nova vida aos livros, promovendo a sustentabilidade e o acesso à cultura.
+Projeto backend desenvolvido em Java com Spring Boot para gerenciamento de um sebo online. A aplicação permite o cadastro e controle de clientes, produtos (livros), pedidos, cupons, avaliações e muito mais.
 
-## Visão Geral
+## 🚀 Tecnologias Utilizadas
 
-O Sebo Online é uma plataforma inovadora que visa conectar amantes de livros, permitindo que eles comprem e vendam livros usados de forma fácil e acessível. Nosso objetivo principal é criar um ambiente onde os usuários possam encontrar livros de seu interesse a preços acessíveis, ao mesmo tempo em que oferecem uma maneira conveniente para que outros usuários possam vender livros que não utilizam mais.
+- Java 17+
+- Spring Boot
+- Spring Data JPA
+- Spring Security (JWT)
+- H2 e PostgreSQL
+- Lombok
+- Swagger (OpenAPI)
+- Postman (para testes)
 
-Além de facilitar a compra, o Sebo Online também busca promover a leitura sustentável, incentivando a reutilização de livros e reduzindo o desperdício. Acreditamos que cada livro tem uma história para contar e merece ser lido por mais de uma pessoa. Ao comprar um livro usado, você não apenas economiza dinheiro, mas também contribui para a preservação do meio ambiente.
+## 📌 Funcionalidades da API
 
-Nossa plataforma oferece uma ampla variedade de gêneros literários, desde clássicos da literatura até best-sellers contemporâneos, passando por livros técnicos e acadêmicos. Independentemente do seu gosto ou necessidade, você certamente encontrará algo de seu interesse no Sebo Online.
+A API expõe endpoints RESTful para:
 
-Além disso, o Sebo Online conta com um sistema de avaliação e comentários, permitindo que os usuários compartilhem suas experiências e opiniões sobre os livros e vendedores. Isso ajuda a criar uma comunidade confiável e transparente, onde todos podem se sentir seguros ao realizar suas transações.
+### 📦 Produtos (`/produtos`)
+- `GET /produtos` – Listar todos
+- `GET /produtos/{id}` – Buscar por ID
+- `GET /produtos/faixa?faixa1=XX&faixa2=YY` – Buscar por faixa de preço
+- `POST /produtos` – Inserir
+- `PUT /produtos/{id}` – Atualizar
+- `DELETE /produtos/{id}` – Excluir
 
-Estamos constantemente trabalhando para melhorar nossa plataforma e oferecer a melhor experiência possível aos nossos usuários. Agradecemos por fazer parte do Sebo Online e esperamos que você aproveite ao máximo tudo o que nossa plataforma tem a oferecer.
+### 👤 Clientes (`/clientes`)
+- `GET /clientes` – Listar
+- `POST /clientes` – Criar
+- `PUT /clientes/{id}` – Atualizar
+- `DELETE /clientes/{id}` – Excluir
+
+### 🛒 Pedidos (`/pedidos`)
+- `GET /pedidos` – Listar
+- `GET /pedidos/{id}` – Buscar por ID
+- `POST /pedidos` – Criar com produtos
+- `PUT /pedidos/{id}/status?status=PROCESSANDO` – Atualizar status
+- `DELETE /pedidos/{id}` – Excluir
+
+### 🧾 Cupons (`/cupons`)
+- `GET /cupons` – Listar todos
+- `GET /cupons/codigo/{codigo}` – Buscar por código
+- `POST /cupons` – Criar
+- `PUT /cupons/codigo/{codigo}` – Atualizar
+- `DELETE /cupons/{codigo}` – Excluir
+
+### 🗺️ Endereços (`/enderecos`)
+- `GET /enderecos/{cep}` – Buscar por CEP (via API externa)
+
+### 🧑‍💼 Funcionários (`/funcionarios`)
+- `GET /funcionarios` – Listar
+- `POST /funcionarios` – Inserir (com perfil)
+- `PUT /funcionarios/{id}` – Atualizar
+- `DELETE /funcionario/{id}` – Excluir
+
+### ✅ Autenticação
+- `POST /login` – Retorna JWT (token) para autenticação de funcionários
+
+### 💬 Avaliações (`/avaliacoes`)
+- `GET /avaliacoes` – Listar
+- `GET /avaliacoes/produto/{id}` – Por produto
+- `POST /avaliacoes` – Criar
+- `PUT /avaliacoes` – Atualizar
+- `DELETE /avaliacoes/{id}` – Excluir
+
+### 💖 Lista de Desejos (`/listaDeDesejos`)
+- `GET /listaDeDesejos` – Listar todas
+- `GET /listaDeDesejos/{id}` – Por ID
+- `GET /listaDeDesejos/cliente/{idCliente}` – Por cliente
+- `POST /listaDeDesejos` – Criar
+- `DELETE /listaDeDesejos/{id}` – Excluir
+
+## 🔧 Como Executar
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/sebo-online.git
+   cd sebo-online
+   ```
+
+2. Importe no **Spring Tool Suite** ou IDE de sua preferência.
+
+3. Acesse:
+   - API: `http://localhost:8080`
+   - H2 Console: `http://localhost:8080/h2-console`
+   - Swagger: `http://localhost:8080/swagger-ui.html` (se habilitado)
+
+## 📋 Etapas Futuras
+
+- ✅ **Checar e testar login e autenticação JWT**
+- ⚠️ **Verificar tratamento de mensagens de erro com clareza**
+- ⚙️ **Documentar completamente os endpoints no Swagger**
+- 🎯 **Implementar lógica de aplicação de cupons nos pedidos**
+
+## 📁 Arquivos de Testes
+
+Os endpoints podem ser testados com o arquivo Postman disponível em:
+
+📂 [`EndPoints Sebo Online.postman_collection.json`](./EndPoints%20Sebo%20Online.postman_collection.json)
+
+## 📜 Licença
+
+Este projeto é open-source e está sob a licença MIT.
