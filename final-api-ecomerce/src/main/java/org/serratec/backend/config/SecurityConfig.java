@@ -22,65 +22,116 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
-//@Configuration
+@Configuration
 public class SecurityConfig {
-	@Autowired
-	private JwtUtil jwtUtil;
+    
+    @Autowired
+    private JwtUtil jwtUtil;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http.csrf(csrf -> csrf.disable())
-	        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-	        //areas para liberacao de endpoints
-	        .authorizeHttpRequests(requests -> requests
-	            .requestMatchers("/public/**").permitAll()
-	            //.requestMatchers(HttpMethod.GET,"/funcionarios").permitAll()
-	            .requestMatchers("/h2-console/**").permitAll()
-	            .requestMatchers(HttpMethod.GET, "/funcionarios").authenticated() //hasAnyRole("ADMIN", "RH")
-	            .requestMatchers(HttpMethod.POST, "/funcionarios").authenticated()  //hasAnyRole("ADMIN", "RH")
-	            .requestMatchers(HttpMethod.PUT, "/funcionarios").hasAnyRole("ADMIN", "RH")
-	            .requestMatchers(HttpMethod.DELETE, "/funcionarios").hasAnyRole("ADMIN", "RH")
-	            .requestMatchers(HttpMethod.POST, "/categoria").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.PUT, "/categoria").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.DELETE, "/categoria").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.POST, "/produto").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.PUT, "/produto").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.DELETE, "/produto").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.PUT, "/pedidos").hasAnyRole("ADMIN", "COMERCIAL")
-	            .requestMatchers(HttpMethod.DELETE, "/pedidos").hasAnyRole("ADMIN", "COMERCIAL")
-	            .anyRequest().authenticated()
-	        )
-	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	        .headers(headers -> headers.frameOptions().disable());
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .authorizeHttpRequests(requests -> requests
+                // Endpoints públicos
+                .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/auth/**").permitAll() // Para login/registro
+                .requestMatchers("/h2-console/**").permitAll()
+                
+                // Funcionários - apenas ADMIN e RH
+                .requestMatchers(HttpMethod.GET, "/funcionarios/**").hasAnyRole("ADMIN", "RH")
+                .requestMatchers(HttpMethod.POST, "/funcionarios/**").hasAnyRole("ADMIN", "RH")
+                .requestMatchers(HttpMethod.PUT, "/funcionarios/**").hasAnyRole("ADMIN", "RH")
+                .requestMatchers(HttpMethod.DELETE, "/funcionarios/**").hasAnyRole("ADMIN", "RH")
+                
+                // Categorias - ADMIN e COMERCIAL
+                .requestMatchers(HttpMethod.GET, "/categoria/**").permitAll() // Leitura liberada
+                .requestMatchers(HttpMethod.POST, "/categoria/**").hasAnyRole("ADMIN", "COMERCIAL")
+                .requestMatchers(HttpMethod.PUT, "/categoria/**").hasAnyRole("ADMIN", "COMERCIAL")
+                .requestMatchers(HttpMethod.DELETE, "/categoria/**").hasAnyRole("ADMIN", "COMERCIAL")
+                
+                // Produtos - ADMIN e COMERCIAL para modificações
+                .requestMatchers(HttpMethod.GET, "/produto/**").permitAll() // Leitura liberada para catálogo
+                .requestMatchers(HttpMethod.POST, "/produto/**").hasAnyRole("ADMIN", "COMERCIAL")
+                .requestMatchers(HttpMethod.PUT, "/produto/**").hasAnyRole("ADMIN", "COMERCIAL")
+                .requestMatchers(HttpMethod.DELETE, "/produto/**").hasAnyRole("ADMIN", "COMERCIAL")
+                
+                // Pedidos - leitura para usuários autenticados, modificação para ADMIN e COMERCIAL
+                .requestMatchers(HttpMethod.GET, "/pedidos/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/pedidos/**").authenticated() // Usuários podem fazer pedidos
+                .requestMatchers(HttpMethod.PUT, "/pedidos/**").hasAnyRole("ADMIN", "COMERCIAL")
+                .requestMatchers(HttpMethod.DELETE, "/pedidos/**").hasAnyRole("ADMIN", "COMERCIAL")
+                
+                // Qualquer outra requisição precisa estar autenticada
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .headers(headers -> headers.frameOptions().disable());
 
-	    http.addFilterBefore(new JwtAuthenticationFilter(
-	            authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtUtil),
-	            UsernamePasswordAuthenticationFilter.class);
+        // 1º - Filtro de Autorização (verifica token)
+        http.addFilterBefore(new JwtAuthorizationFilter(
+                authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), 
+                jwtUtil, 
+                userDetailsService),
+                UsernamePasswordAuthenticationFilter.class);
+        
+        // 2º - Filtro de Autenticação (processa login)
+        http.addFilterAfter(new JwtAuthenticationFilter(
+                authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), 
+                jwtUtil),
+                JwtAuthorizationFilter.class);
 
-	    http.addFilterBefore(new JwtAuthorizationFilter(
-	            authenticationManager(http.getSharedObject(AuthenticationConfiguration.class)), jwtUtil, userDetailsService),
-	            UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
 
-	    return http.build();
-	}
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-			throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
-
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:2000"));
-		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());
-		return source;
-	}
-
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        
+        // Origens permitidas
+        corsConfiguration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:5173", 
+            "http://localhost:2000",
+            "http://localhost:3000" 
+        ));
+        
+        // Métodos HTTP permitidos
+        corsConfiguration.setAllowedMethods(Arrays.asList(
+            "GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"
+        ));
+        
+        // CORREÇÃO: Headers essenciais para JWT
+        corsConfiguration.setAllowedHeaders(Arrays.asList(
+            "Authorization", 
+            "Content-Type", 
+            "X-Requested-With",
+            "Accept",
+            "Origin",
+            "Access-Control-Request-Method",
+            "Access-Control-Request-Headers"
+        ));
+        
+        // Permite envio de credenciais
+        corsConfiguration.setAllowCredentials(true);
+        
+        // Headers expostos para o cliente
+        corsConfiguration.setExposedHeaders(Arrays.asList(
+            "Authorization",
+            "Access-Control-Allow-Origin",
+            "Access-Control-Allow-Credentials"
+        ));
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
+    }
 }
