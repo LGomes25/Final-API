@@ -2,6 +2,16 @@
 
 Projeto backend desenvolvido em Java com Spring Boot para gerenciamento de um sebo online. A aplicação permite o cadastro e controle de clientes, produtos (livros), pedidos, cupons, avaliações e muito mais.
 
+## 👥 Autores
+
+Este projeto foi desenvolvido por:
+
+* **Eduardha Fecher**
+* **Maria Vitoria Martelli**
+* **Leorick Felippe**
+* **Mateus Fernandes**
+* **Leonardo Gomes**
+
 ## 🚀 Tecnologias Utilizadas
 
 - Java 17+
@@ -88,7 +98,6 @@ A API expõe endpoints RESTful para:
 
 ## 📋 Etapas Futuras
 
-- ✅ **Checar e testar login e autenticação JWT**
 - ⚠️ **Verificar tratamento de mensagens de erro com clareza**
 - ⚙️ **Documentar completamente os endpoints no Swagger**
 - 🎯 **Implementar lógica de aplicação de cupons nos pedidos**
