@@ -41,6 +41,13 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll() // Para login/registro
                 .requestMatchers("/h2-console/**").permitAll()
                 
+                // Swagger UI e documentação - LIBERADO PARA ACESSO
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/swagger-ui.html").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
+                .requestMatchers("/swagger-resources/**").permitAll()
+                .requestMatchers("/webjars/**").permitAll()
+                
                 // Funcionários - apenas ADMIN e RH
                 .requestMatchers(HttpMethod.GET, "/funcionarios/**").hasAnyRole("ADMIN", "RH")
                 .requestMatchers(HttpMethod.POST, "/funcionarios/**").hasAnyRole("ADMIN", "RH")
