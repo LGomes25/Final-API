@@ -40,14 +40,14 @@ public class ProdutoService {
 
     @Transactional
     public ProdutoResponseDTO inserir(ProdutoRequestDTO produtoRequestDTO) {
-        if (produtoRequestDTO.getIdCategoria() == null) {
+        if (produtoRequestDTO.getCategoriaId() == null) {
             throw new ProdutoException("A categoria é obrigatória para inserir um produto.");
         }
         if (produtoRepository.findByNome(produtoRequestDTO.getNome()).isPresent()) {
             throw new ProdutoException("Já existe um produto com o nome: " + produtoRequestDTO.getNome());
         }
 
-        Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getIdCategoria());
+        Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getCategoriaId());
         
         Produto produto = new Produto();
         produto.setNome(produtoRequestDTO.getNome());
@@ -73,8 +73,8 @@ public class ProdutoService {
         produto.setPreco(produtoRequestDTO.getPreco());
         produto.setIsbn(produtoRequestDTO.getIsbn());
 
-        if (produtoRequestDTO.getIdCategoria() != null) {
-            Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getIdCategoria());
+        if (produtoRequestDTO.getCategoriaId() != null) {
+            Optional<Categoria> cat = catRepo.findById(produtoRequestDTO.getCategoriaId());
             produto.setCategoria(cat.get());
         }
 
