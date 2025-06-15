@@ -21,7 +21,7 @@ public class ProdutoRequestDTO {
     private Double preco;
 
     @NotNull(message = "O ID da categoria é obrigatório.")
-    private Long idCategoria;
+    private Long categoriaId;
     
     @NotBlank(message = "O ISBN do livro é obrigatório")
     private String isbn;
